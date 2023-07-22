@@ -44,6 +44,10 @@ const reactionSchema = new mongoose.Schema(
         type: string,
         required: true,
        },
+       userId: {
+        type: Types.ObjectId,
+        ref: "User",
+       },
        reactiions: [reactionSchema],
     },
   );
