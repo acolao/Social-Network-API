@@ -1,15 +1,15 @@
 const { Schema, Types, model } = require('mongoose');
 
-const userSchema = new mongoose.Schema(
+const userSchema = new Schema(
     {
         username: {
-            type: string,
+            type: String,
             unique: true,
             required: true,
             trim: true,
         },
         email: {
-            type: string,
+            type: String,
             required: true,
             unique: true,
             match: [/^.+@(?:[\w-]+\.)+\w+$/, "Please provide valid email address"],
@@ -25,7 +25,7 @@ const userSchema = new mongoose.Schema(
     }
 );
 
-usernameSchema.virtual("friendsCount").get(function () {
+userSchema.virtual("friendCount").get(function () {
     return this.friends.length;
 });
 

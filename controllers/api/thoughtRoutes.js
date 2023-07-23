@@ -12,7 +12,7 @@ router.get("/", async (req, res) => {
     }
 });
 
-router.get("/", async (req, res) => {
+router.get("/:thoughtId", async (req, res) => {
     try{
         const thought = await Thought.findbyId(req.params.thoughtId);
 
@@ -26,7 +26,8 @@ router.get("/", async (req, res) => {
 router.post("/", async (req, res) => {
     try {
         const selectedUser = await User.findOne({ username: req.body.username });
-        if (selectedUser) = await Thought.create({
+        if (selectedUser) {
+        const createdThought = await Thought.create({
             thoughtText: req.body.thoughtText,
             username: req.body.username,
             userUd: selectedUser._id,
@@ -45,14 +46,18 @@ router.post("/", async (req, res) => {
         );
 
         res.status(200).json({ message: "Thought created", createdThought});
-    } else res.status(400).json({ message: "Username invalid" });
+    } else {
+        res.status(400).json({ message: "Username invalid" });
+    }
 } catch (err) {
     console.log(err);
     res.status(500).json(err);
+}
 });
 
 router.put("/:thoughtId", async (req, res) => {
-    const updateThought = await Thought.findbyIdAndUpate(
+    try{
+    const updateThought = await Thought.findByIdAndUpate(
         req.params.thoughtId,
         {
             thoughtText: req.body.thoughtText,
@@ -61,4 +66,16 @@ router.put("/:thoughtId", async (req, res) => {
             returnOriginal: false,
         }
     );
-})
+
+    if (updatedThought) {
+        res.status(200).json({ message: "Thought updated", updatedThought});
+     } else {
+        res.status(404).json({ message: "Thought not found" });
+     }
+       }   catch (err) {
+        console.log(err);
+        res.status(500).json(err);
+       }
+    });
+
+    module.exports = router;
