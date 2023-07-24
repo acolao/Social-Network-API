@@ -103,7 +103,7 @@ router.delete("/:userId/friends/:friendId", async (req, res) => {
         const removeFriend = await User.findByIdAndUpdate(
             req.params.userId,
             {
-                $pull: { friends: friends._id};
+                $pull: { friends: friend._id},
             },
             {
                 returnOriginal: false,
