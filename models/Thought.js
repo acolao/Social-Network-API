@@ -17,7 +17,7 @@ const reactionSchema = new Schema(
     },
     createdAt: {
         type: Date,
-        default: () => Date.now(),
+        default: Date.now,
     },
     },
     {
@@ -28,17 +28,18 @@ const reactionSchema = new Schema(
     }
   );
 
-  const thoughtSchema = new Schema(
+
+const thoughtSchema = new Schema(
     {
        thoughtText: {
         type: String,
         required: true,
-        minlength: 1,
+        minLength: 1,
         maxLength: 280,
        },
        createdAt: {
         type: Date,
-        default: () => Date.now(),
+        default: Date.now,
        },
        username: {
         type: String,
@@ -48,7 +49,7 @@ const reactionSchema = new Schema(
         type: Types.ObjectId,
         ref: "User",
        },
-       reactiions: [reactionSchema],
+       reactions: [reactionSchema],
     },
        {
         toJSON: {
@@ -61,7 +62,8 @@ const reactionSchema = new Schema(
         thoughtSchema.virtual("reactionCount").get(function () {
             return this.reactions.length;
         });
-
+        // 'Thought' is the name of the model
+        // thoughtSchema is the name of the schema we are using to create a new instance of the model
         const Thought = model("Thought", thoughtSchema);
 
         module.exports = { Thought, thoughtSchema };

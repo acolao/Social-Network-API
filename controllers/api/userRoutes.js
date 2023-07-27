@@ -2,6 +2,7 @@ const router = require("express").Router();
 const { Types } = require("mongoose");
 const { User, Thought } = require("../../models");
 
+
 router.get("/", async (req, res) => {
     const allUsers = await User.find();
 

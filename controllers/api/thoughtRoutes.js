@@ -14,7 +14,7 @@ router.get("/", async (req, res) => {
 
 router.get("/:thoughtId", async (req, res) => {
     try{
-        const thought = await Thought.findbyId(req.params.thoughtId);
+        const thought = await Thought.findById(req.params.thoughtId);
 
         res.status(200).json(thought);
     } catch (err) {
@@ -30,7 +30,7 @@ router.post("/", async (req, res) => {
         const createdThought = await Thought.create({
             thoughtText: req.body.thoughtText,
             username: req.body.username,
-            userUd: selectedUser._id,
+            userId: selectedUser._id,
     });
 
         const usernameThought = await User.findOneAndUpdate(
@@ -57,7 +57,7 @@ router.post("/", async (req, res) => {
 
 router.put("/:thoughtId", async (req, res) => {
     try{
-    const updateThought = await Thought.findByIdAndUpate(
+    const updateThought = await Thought.findByIdAndUpdate(
         req.params.thoughtId,
         {
             thoughtText: req.body.thoughtText,
