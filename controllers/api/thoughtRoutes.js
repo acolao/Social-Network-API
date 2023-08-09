@@ -57,7 +57,7 @@ router.post("/", async (req, res) => {
 
 router.put("/:thoughtId", async (req, res) => {
     try{
-    const updateThought = await Thought.findByIdAndUpdate(
+    const updatedThought = await Thought.findByIdAndUpdate(
         req.params.thoughtId,
         {
             thoughtText: req.body.thoughtText,
@@ -68,7 +68,7 @@ router.put("/:thoughtId", async (req, res) => {
     );
 
     if (updatedThought) {
-        res.status(200).json({ message: "Thought updated", updatedThought});
+        res.status(200).json({ message: "Thought updated", updatedThought });
      } else {
         res.status(404).json({ message: "Thought not found" });
      }
